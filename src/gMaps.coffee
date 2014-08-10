@@ -1,5 +1,5 @@
-class @gMaps
-
+class @gMaps extends Module
+  @include exceptions
   defaults:
     className: "gMaps"
     center:
@@ -19,7 +19,7 @@ class @gMaps
 
   elementId: ->
     id = @element.attr "id"
-    if id? then id else exceptions().noId()
+    if id? then id else @throwNoId()
 
   center: (@mapCenter = @mapCenter) ->
     if center? then @setCenter() else @mapCenter
@@ -29,9 +29,3 @@ class @gMaps
 
   setCenter:  ->
     @mapCenter = @map.setCenter(@mapCenter)
-
-  exceptions = ->
-    @gMapsExceptionsClass ||= new gMapsExceptions
-
-class @gMapsExceptions
-  noId: -> throw "Element has no id"

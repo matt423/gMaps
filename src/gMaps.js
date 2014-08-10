@@ -1,7 +1,12 @@
 (function() {
+  var __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-  this.gMaps = (function() {
-    var exceptions;
+  this.gMaps = (function(_super) {
+
+    __extends(gMaps, _super);
+
+    gMaps.include(exceptions);
 
     gMaps.prototype.defaults = {
       className: "gMaps",
@@ -37,7 +42,7 @@
       if (id != null) {
         return id;
       } else {
-        return exceptions().noId();
+        return this.throwNoId();
       }
     };
 
@@ -58,24 +63,8 @@
       return this.mapCenter = this.map.setCenter(this.mapCenter);
     };
 
-    exceptions = function() {
-      return this.gMapsExceptionsClass || (this.gMapsExceptionsClass = new gMapsExceptions);
-    };
-
     return gMaps;
 
-  })();
-
-  this.gMapsExceptions = (function() {
-
-    function gMapsExceptions() {}
-
-    gMapsExceptions.prototype.noId = function() {
-      throw "Element has no id";
-    };
-
-    return gMapsExceptions;
-
-  })();
+  })(Module);
 
 }).call(this);
