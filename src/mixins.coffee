@@ -8,10 +8,11 @@ class @Module
     obj.extended?.apply(@)
     this
 
-  @include: (obj) ->
-    for key, value of obj when key not in moduleKeywords
-      # Assign properties to the prototype
-      @::[key] = value
+  @include: (mixins...) ->
+    for mixin in mixins
+      for key, value of mixin when key not in moduleKeywords
+        # Assign properties to the prototype
+        @::[key] = value
 
-    obj.included?.apply(@)
+      mixin.included?.apply(@)
     this
