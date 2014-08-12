@@ -1,5 +1,5 @@
 class @gMaps extends Module
-  @include exceptions
+  @include Exceptions
   defaults:
     className: "gMaps"
     center:
