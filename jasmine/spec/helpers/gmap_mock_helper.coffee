@@ -86,10 +86,9 @@ class @GoogleApiMock
   mockMapTypeId: (MapTypeId = {ROADMAP: "roadmap"}) ->
     window.google.maps.MapTypeId = MapTypeId
 
-  mockOverlayView: (
+  mockOverlayView: ->
     OverlayView = class OverlayView
-      setMap:() ->
-  ) ->
+      setMap:() -> @
     window.google.maps.OverlayView = OverlayView
 
   mockEvent: (event = {}) ->
@@ -138,7 +137,11 @@ class @GoogleApiMock
     window.google.maps.Point = Point
 
   getMarker: ->
-    Marker = (opts) -> return
+    Marker = (@opts) -> return
+
+    Marker.prototype.getPosition = ->
+      return @opts
+
     Marker.prototype.setMap = (map) ->
       return
 

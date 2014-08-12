@@ -104,7 +104,7 @@
       };
       this.mockMapTypeId();
       this.mockLatLng();
-//      this.mockOverlayView();
+      this.mockOverlayView();
       this.mockEvent();
       return window.google.maps.Map = Map;
     };
@@ -144,6 +144,22 @@
         };
       }
       return window.google.maps.MapTypeId = MapTypeId;
+    };
+
+    GoogleApiMock.prototype.mockOverlayView = function() {
+      var OverlayView;
+      OverlayView = OverlayView = (function() {
+
+        function OverlayView() {}
+
+        OverlayView.prototype.setMap = function() {
+          return this;
+        };
+
+        return OverlayView;
+
+      })();
+      return window.google.maps.OverlayView = OverlayView;
     };
 
     GoogleApiMock.prototype.mockEvent = function(event) {
@@ -217,7 +233,12 @@
 
     GoogleApiMock.prototype.getMarker = function() {
       var Marker;
-      Marker = function(opts) {};
+      Marker = function(opts) {
+        this.opts = opts;
+      };
+      Marker.prototype.getPosition = function() {
+        return this.opts;
+      };
       Marker.prototype.setMap = function(map) {};
       return Marker;
     };
