@@ -3,12 +3,14 @@ class @gMaps extends Module
   defaults:
     className: "gMaps"
     center:
-      lat: 1, lng: 1
+      lat: 52, lng: 1
     zoom: 8
 
   constructor: (@element, options = {}) ->
     @settings = $.extend({}, @defaults, options)
-    @addMap() if @elementId()
+    if @elementId()
+      @addMap()
+      @defaultCenter()
 
   addMap: ->
     @element.addClass @settings.className
@@ -21,11 +23,16 @@ class @gMaps extends Module
     id = @element.attr "id"
     if id? then id else @throwNoId()
 
-  center: (@mapCenter = @mapCenter) ->
-    if center? then @setCenter() else @mapCenter
+  defaultCenter: ->
+    @mapCenter = @settings.center
+
+  center: (mapCenter) ->
+    @mapCenter = mapCenter?= @mapCenter
+    @setCenter()
+    @mapCenter
 
   @latLang: (lat, lang) ->
     new google.maps.LatLng lat, lang
 
-  setCenter:  ->
-    @mapCenter = @map.setCenter(@mapCenter)
+  setCenter: ->
+    @map.setCenter(@mapCenter)

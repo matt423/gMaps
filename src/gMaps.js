@@ -6,12 +6,12 @@
 
     __extends(gMaps, _super);
 
-    gMaps.include(Exceptions);
+    gMaps.include(Exceptions, Markers);
 
     gMaps.prototype.defaults = {
       className: "gMaps",
       center: {
-        lat: 1,
+        lat: 52,
         lng: 1
       },
       zoom: 8
@@ -21,7 +21,10 @@
       this.element = element;
       if (options == null) options = {};
       this.settings = $.extend({}, this.defaults, options);
-      if (this.elementId()) this.addMap();
+      if (this.elementId()) {
+        this.addMap();
+        this.defaultCenter();
+      }
     }
 
     gMaps.prototype.addMap = function() {
@@ -46,13 +49,14 @@
       }
     };
 
+    gMaps.prototype.defaultCenter = function() {
+      return this.mapCenter = this.settings.center;
+    };
+
     gMaps.prototype.center = function(mapCenter) {
-      this.mapCenter = mapCenter != null ? mapCenter : this.mapCenter;
-      if (typeof center !== "undefined" && center !== null) {
-        return this.setCenter();
-      } else {
-        return this.mapCenter;
-      }
+      this.mapCenter = mapCenter != null ? mapCenter : mapCenter = this.mapCenter;
+      this.setCenter();
+      return this.mapCenter;
     };
 
     gMaps.latLang = function(lat, lang) {
@@ -60,7 +64,7 @@
     };
 
     gMaps.prototype.setCenter = function() {
-      return this.mapCenter = this.map.setCenter(this.mapCenter);
+      return this.map.setCenter(this.mapCenter);
     };
 
     return gMaps;
