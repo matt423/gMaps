@@ -1,5 +1,5 @@
 class @gMaps extends Module
-  @include Exceptions
+  @include Exceptions, Markers
   defaults:
     className: "gMaps"
     center:
@@ -7,6 +7,7 @@ class @gMaps extends Module
     zoom: 8
 
   constructor: (@element, options = {}) ->
+    @markers = []
     @settings = $.extend({}, @defaults, options)
     if @elementId()
       @addMap()
@@ -31,8 +32,8 @@ class @gMaps extends Module
     @setCenter()
     @mapCenter
 
-  @latLang: (lat, lang) ->
-    new google.maps.LatLng lat, lang
+  latLng: (lat, lng) ->
+    new google.maps.LatLng lat, lng
 
   setCenter: ->
     @map.setCenter(@mapCenter)

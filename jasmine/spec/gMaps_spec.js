@@ -5,6 +5,7 @@
       this.mockGoogle = new GoogleApiMock();
       this.mockGoogle.mockAPI();
       this.mockGoogle.mockMap();
+      this.mockGoogle.mockMarker();
       this.element = $("<div id='maps-view'><div>");
       return this.maps = new gMaps(this.element, {
         center: {
@@ -34,23 +35,81 @@
         return expect(this.maps.map).not.toBe(void 0);
       });
     });
-    return describe("center", function() {
+    describe("center", function() {
+      var newCenter;
+      newCenter = {
+        lat: 50.0,
+        lng: 1.23
+      };
       it("should set the center of the map if parameters are passed", function() {
-        var newCenter;
-        newCenter = {
-          lat: 50.0,
-          lng: 1.23
-        };
         return expect(this.maps.center(newCenter)).toEqual(newCenter);
       });
       return it("should return the center if no parameters are passed", function() {
-        var newCenter;
-        newCenter = {
-          lat: 50.0,
-          lng: 1.23
-        };
         this.maps.center(newCenter);
         return expect(this.maps.center()).toEqual(newCenter);
+      });
+    });
+    describe("addMarker", function() {
+      it("should add the marker to the markers array", function() {
+        this.maps.addMarker({
+          lat: 52,
+          lng: 1
+        });
+        return expect(this.maps.markers.length).toEqual(1);
+      });
+      it("should add the marker to the center of the map if the center option is passed", function() {
+        this.maps.center({
+          lat: 50.0,
+          lng: 1.23
+        });
+        this.maps.addMarker({
+          center: true
+        });
+        return expect({
+          lat: 50.0,
+          lng: 1.23
+        }).toEqual(this.maps.center());
+      });
+      return it("should add the marker to location if center is not passed", function() {
+        this.maps.center({
+          lat: 50.0,
+          lng: 1.23
+        });
+        this.maps.addMarker({
+          lat: 34,
+          lng: 1
+        });
+        return expect(this.maps.markers[0].getPosition()).toEqual({
+          k: 34,
+          B: 1
+        });
+      });
+    });
+    describe("destroyMarker", function() {
+      beforeEach(function() {
+        var marker;
+        marker = this.maps.addMarker({
+          center: true
+        });
+        return this.maps.destroyMarker(marker);
+      });
+      return it("should destroy the marker from the markers array", function() {
+        return expect(this.maps.markers).toEqual([]);
+      });
+    });
+    return describe("destroyMarkers", function() {
+      beforeEach(function() {
+        var _i;
+        for (_i = 1; _i <= 3; _i++) {
+          this.maps.addMarker({
+            lat: 34,
+            lng: 1
+          });
+        }
+        return this.maps.destroyMarkers();
+      });
+      return it("should destroy the marker from the markers array", function() {
+        return expect(this.maps.markers).toEqual([]);
       });
     });
   });

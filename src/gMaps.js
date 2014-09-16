@@ -20,6 +20,7 @@
     function gMaps(element, options) {
       this.element = element;
       if (options == null) options = {};
+      this.markers = [];
       this.settings = $.extend({}, this.defaults, options);
       if (this.elementId()) {
         this.addMap();
@@ -59,8 +60,8 @@
       return this.mapCenter;
     };
 
-    gMaps.latLang = function(lat, lang) {
-      return new google.maps.LatLng(lat, lang);
+    gMaps.prototype.latLng = function(lat, lng) {
+      return new google.maps.LatLng(lat, lng);
     };
 
     gMaps.prototype.setCenter = function() {

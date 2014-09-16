@@ -140,10 +140,9 @@ class @GoogleApiMock
     Marker = (@opts) -> return
 
     Marker.prototype.getPosition = ->
-      return @opts
+      return k: @opts.position.lat(), B: @opts.position.lng()
 
-    Marker.prototype.setMap = (map) ->
-      return
+    Marker.prototype.setMap = (map) -> return
 
     return Marker
 

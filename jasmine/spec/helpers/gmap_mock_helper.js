@@ -237,7 +237,10 @@
         this.opts = opts;
       };
       Marker.prototype.getPosition = function() {
-        return this.opts;
+        return {
+          k: this.opts.position.lat(),
+          B: this.opts.position.lng()
+        };
       };
       Marker.prototype.setMap = function(map) {};
       return Marker;
