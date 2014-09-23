@@ -6,7 +6,7 @@
 
     __extends(gMaps, _super);
 
-    gMaps.include(Exceptions, Markers);
+    gMaps.include(Exceptions, Markers, Listeners);
 
     gMaps.prototype.defaults = {
       className: "gMaps",

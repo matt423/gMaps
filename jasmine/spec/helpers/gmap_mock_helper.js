@@ -178,7 +178,8 @@
             toPush.obj = thing;
             toPush.events = {};
             toPush.events[eventName] = callBack;
-            return listeners.push(toPush);
+            listeners.push(toPush);
+            return listeners;
           } else {
             return found.events[eventName] = callBack;
           }

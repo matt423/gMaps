@@ -6,6 +6,7 @@
       this.mockGoogle.mockAPI();
       this.mockGoogle.mockMap();
       this.mockGoogle.mockMarker();
+      this.mockGoogle.mockEvent();
       this.element = $("<div id='maps-view'><div>");
       return this.maps = new gMaps(this.element, {
         center: {
@@ -97,7 +98,7 @@
         return expect(this.maps.markers).toEqual([]);
       });
     });
-    return describe("destroyMarkers", function() {
+    describe("destroyMarkers", function() {
       beforeEach(function() {
         var _i;
         for (_i = 1; _i <= 3; _i++) {
@@ -110,6 +111,14 @@
       });
       return it("should destroy the marker from the markers array", function() {
         return expect(this.maps.markers).toEqual([]);
+      });
+    });
+    return describe("onClick", function() {
+      beforeEach(function() {
+        return this.addListener = this.maps.onClick(this.callback);
+      });
+      return it("should add a click event listener to the map", function() {
+        return expect(_.isFunction(this.addListener[0].events.click)).toBe(true);
       });
     });
   });

@@ -5,6 +5,7 @@ describe "gMaps", ->
     @mockGoogle.mockAPI()
     @mockGoogle.mockMap()
     @mockGoogle.mockMarker()
+    @mockGoogle.mockEvent()
     @element = $("<div id='maps-view'><div>")
     @maps = new gMaps @element,
       center: lat: 51.5, lng: -0.116667
@@ -64,3 +65,10 @@ describe "gMaps", ->
 
     it "should destroy the marker from the markers array", ->
       expect(@maps.markers).toEqual([])
+
+  describe "onClick", ->
+    beforeEach ->
+      @addListener = @maps.onClick @callback
+
+    it "should add a click event listener to the map", ->
+      expect(_.isFunction(@addListener[0].events.click)).toBe(true)

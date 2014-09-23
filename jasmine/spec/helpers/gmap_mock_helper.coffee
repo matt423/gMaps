@@ -104,6 +104,7 @@ class @GoogleApiMock
           toPush.events = {}
           toPush.events[eventName] = callBack
           listeners.push toPush
+          listeners
         else
           found.events[eventName] = callBack
 
