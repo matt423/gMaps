@@ -86,6 +86,25 @@
         });
       });
     });
+    describe("markerOptions", function() {
+      beforeEach(function() {
+        this.maps.settings.markers = {
+          icon: "my_icon"
+        };
+        return this.markerOptions = this.maps.markerOptions({
+          center: true
+        });
+      });
+      it("should set the correct position of the marker", function() {
+        return expect(this.markerOptions.position.lat()).toEqual(this.maps.center().lat);
+      });
+      it("should set the marker icon if it set", function() {
+        return expect(this.markerOptions).toBeDefined();
+      });
+      return it("should set the map property of the marker", function() {
+        return expect(this.markerOptions.map).toEqual(this.maps.map);
+      });
+    });
     describe("destroyMarker", function() {
       beforeEach(function() {
         var marker;

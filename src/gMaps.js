@@ -1,6 +1,6 @@
 (function() {
-  var __hasProp = Object.prototype.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   this.gMaps = (function(_super) {
 
@@ -19,7 +19,9 @@
 
     function gMaps(element, options) {
       this.element = element;
-      if (options == null) options = {};
+      if (options == null) {
+        options = {};
+      }
       this.markers = [];
       this.settings = $.extend({}, this.defaults, options);
       if (this.elementId()) {

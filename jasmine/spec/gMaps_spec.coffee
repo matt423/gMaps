@@ -50,6 +50,21 @@ describe "gMaps", ->
       @maps.addMarker({lat: 34, lng: 1})
       expect(@maps.markers[0].getPosition()).toEqual({k: 34, B: 1})
 
+  describe "markerOptions", ->
+
+    beforeEach ->
+      @maps.settings.markers = icon: "my_icon"
+      @markerOptions = @maps.markerOptions(center: true)
+
+    it "should set the correct position of the marker", ->
+      expect(@markerOptions.position.lat()).toEqual(@maps.center().lat)
+
+    it "should set the marker icon if it set", ->
+      expect(@markerOptions).toBeDefined()
+
+    it "should set the map property of the marker", ->
+      expect(@markerOptions.map).toEqual(@maps.map)
+
   describe "destroyMarker", ->
     beforeEach ->
       marker = @maps.addMarker center: true

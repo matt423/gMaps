@@ -1,15 +1,19 @@
 @Markers =
   addMarker: (marker, infoWindow) ->
     marker = new google.maps.Marker(@markerOptions(marker))
-    marker.setMap @map
     @markers.push marker
     marker
 
   markerOptions: (options) ->
+    map: @map
+    position: @markerPosition(options)
+    icon: @settings.markers.icon if @settings.markers?.icon?
+
+  markerPosition: (options) ->
     if options.center?
-      position: @latLng(@center().lat, @center().lng)
+      @latLng(@center().lat, @center().lng)
     else
-      position: @latLng(options.lat, options.lng)
+      @latLng(options.lat, options.lng)
 
   destroyMarker: (markerToDelete) ->
     markerToDelete.setMap null
