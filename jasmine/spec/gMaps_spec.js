@@ -132,12 +132,31 @@
         return expect(this.maps.markers).toEqual([]);
       });
     });
-    return describe("onClick", function() {
+    describe("onClick", function() {
       beforeEach(function() {
         return this.addListener = this.maps.onClick(this.callback);
       });
       return it("should add a click event listener to the map", function() {
         return expect(_.isFunction(this.addListener[0].events.click)).toBe(true);
+      });
+    });
+    return describe("resize", function() {
+      beforeEach(function() {
+        spyOn(window.google.maps.event, 'trigger');
+        this.maps.setCenter({
+          lat: 232,
+          lng: 23232
+        });
+        return this.maps.resize();
+      });
+      it("should trigger an event to resize the map", function() {
+        return expect(window.google.maps.event.trigger).toHaveBeenCalled();
+      });
+      return it("should reset the center of the map", function() {
+        return expect(this.maps.center()).toEqual({
+          lat: 51.5,
+          lng: -0.116667
+        });
       });
     });
   });

@@ -87,3 +87,15 @@ describe "gMaps", ->
 
     it "should add a click event listener to the map", ->
       expect(_.isFunction(@addListener[0].events.click)).toBe(true)
+
+  describe "resize", ->
+    beforeEach ->
+      spyOn(window.google.maps.event, 'trigger')
+      @maps.setCenter(lat: 232, lng: 23232)
+      @maps.resize()
+
+    it "should trigger an event to resize the map", ->
+      expect(window.google.maps.event.trigger).toHaveBeenCalled()
+
+    it "should reset the center of the map", ->
+      expect(@maps.center()).toEqual(lat: 51.5, lng: -0.116667)

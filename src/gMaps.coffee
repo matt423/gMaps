@@ -37,3 +37,7 @@ class @gMaps extends Module
 
   setCenter: ->
     @map.setCenter(@mapCenter)
+
+  resize: ->
+    google.maps.event.trigger(@map, 'resize')
+    @map.setCenter @mapCenter

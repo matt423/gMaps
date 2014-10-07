@@ -18,7 +18,8 @@
       window.google.maps.event = {
         clearListeners: unmocked("event.clearListeners"),
         addListener: unmocked("event.addListener"),
-        removeListener: unmocked("event.removeListener")
+        removeListener: unmocked("event.removeListener"),
+        trigger: unmocked("event.trigger")
       };
       window.google.maps.OverlayView = unmocked("OverlayView");
       window.google.maps.InfoWindow = unmocked("InfoWindow");
@@ -195,6 +196,11 @@
           var index;
           index = listeners.indexOf(item);
           if (index !== -1) return listeners.splice(index);
+        };
+      }
+      if (!event.trigger) {
+        event.trigger = function(map, trigger) {
+          return this;
         };
       }
       if (!event.fireListener) {

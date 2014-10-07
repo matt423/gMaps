@@ -12,6 +12,7 @@ class @GoogleApiMock
       clearListeners: unmocked("event.clearListeners")
       addListener: unmocked("event.addListener")
       removeListener: unmocked("event.removeListener")
+      trigger: unmocked("event.trigger")
     window.google.maps.OverlayView = unmocked("OverlayView")
     window.google.maps.InfoWindow = unmocked("InfoWindow")
     window.google.maps.LatLng = unmocked("LatLng")
@@ -117,6 +118,10 @@ class @GoogleApiMock
         index = listeners.indexOf(item)
         if index != -1
           listeners.splice(index)
+
+    if not event.trigger
+      event.trigger = (map, trigger) ->
+        @
 
     unless event.fireListener
       event.fireListener = (thing, eventName) =>
